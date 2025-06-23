@@ -10,7 +10,7 @@ RUN npm run build
 
 # ---------------------------------------------------- #
 
-FROM node:22-slim as base
+FROM node:22-slim AS base
 
 WORKDIR /app
 COPY --from=builder /app/node_modules ./node_modules
