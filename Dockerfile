@@ -1,0 +1,18 @@
+FROM node:22-slim AS builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --ignore-scripts
+COPY src/ ./src
+COPY app.ts ./
+COPY tsconfig.json ./
+RUN npm run build
+
+# ---------------------------------------------------- #
+
+FROM node:22-slim as base
+
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+CMD ["node","dist/app.js"]

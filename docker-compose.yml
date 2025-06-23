@@ -1,0 +1,8 @@
+services:
+  telegram-simple-server:
+    build: .
+    ports:
+      - "${PORT:-7887}:${PORT:-7887}"
+    env_file:
+      - .env
+    restart: on-failure
