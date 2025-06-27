@@ -21,6 +21,12 @@ The `message` field should contain the message text using `HTML` styling by defa
 
 The message can provide attachments. To do so, filename and its content in Base64 format should be provided. All the attachments will be sent sequentially after the text message.
 
+## Prerequisites
+
+You need to provide a Telegram bot key and a Chat ID in order to be able to send messages.
+
+If you don't know how to create a Telegram bot and generate that information, check [this link](https://core.telegram.org/bots#how-do-i-create-a-bot). I assure you it's quite simple (and also for free).
+
 ## Environment variables
 
 In order to make it work, you need to create an `.env` file with the following variables:
@@ -45,5 +51,4 @@ Alternately, you can use a docker image for the same purpose using docker compos
 ```
 docker-compose up
 ```
-
 
