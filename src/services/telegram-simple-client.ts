@@ -4,6 +4,8 @@ import FormData from "form-data";
 import path from "path";
 import { Attachment } from "../types/attachment";
 import { AttachmentEndpoint } from "../types/attachment-endpoint";
+import { TelegramFormat } from "../types/telegram-format";
+import configuration from "../../config";
 
 export default class TelegramSimpleClient {
   private chatId: string;
@@ -12,14 +14,14 @@ export default class TelegramSimpleClient {
 
   constructor(botToken: string, chatId: string) {
     this.chatId = chatId;
-    this.baseUrl = `https://api.telegram.org/bot${botToken}`;
-    this.apiUrl = `${this.baseUrl}/sendMessage`;
+    this.baseUrl = `${configuration.baseUrl}/${configuration.endpoints.bot}${botToken}`;
+    this.apiUrl = `${this.baseUrl}/${configuration.routes.sendMessage}`;
   }
 
   async sendMessage(
     telegramMessage: string,
     attachments?: Attachment[],
-    format: "HTML" | "MarkdownV2" | "Markdown" = "HTML"
+    format: TelegramFormat = "HTML"
   ): Promise<any[]> {
     const response = [];
 
@@ -91,23 +93,23 @@ export default class TelegramSimpleClient {
     const attachmenTypes = {};
     const endpoints = {};
 
-    ["jpg", "jpeg", "gif", "png", "bmp"].forEach((ext) => {
-      attachmenTypes[ext] = "photo";
-      endpoints[ext] = "/sendPhoto";
+    configuration.fileExtensions.photo.forEach((ext) => {
+      attachmenTypes[ext] = configuration.fileTypes.photo;
+      endpoints[ext] = `/${configuration.endpoints.sendPhoto}`;
     });
-    ["mp3", "wav"].forEach((ext) => {
-      attachmenTypes[ext] = "audio";
-      endpoints[ext] = "/sendAudio";
+    configuration.fileExtensions.audio.forEach((ext) => {
+      attachmenTypes[ext] = configuration.fileTypes.audio;
+      endpoints[ext] = `/${configuration.endpoints.sendAudio}`;
     });
-    ["mp4", "mov", "avi"].forEach((ext) => {
-      attachmenTypes[ext] = "video";
-      endpoints[ext] = "/sendVideo";
+    configuration.fileExtensions.video.forEach((ext) => {
+      attachmenTypes[ext] = configuration.fileTypes.video;
+      endpoints[ext] = `/${configuration.endpoints.sendVideo}`;
     });
 
     const attachmentType =
-      attachmenTypes[extension.toLocaleLowerCase()] ?? "document";
+      attachmenTypes[extension.toLocaleLowerCase()] ?? configuration.fileTypes.document;
     const endpoint =
-      endpoints[extension.toLocaleLowerCase()] ?? "/sendDocument";
+      endpoints[extension.toLocaleLowerCase()] ?? `/${configuration.endpoints.sendDocument}`;;
 
     return {
       attachmentType: attachmentType,

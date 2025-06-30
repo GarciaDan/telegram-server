@@ -1,0 +1,1 @@
+export type TelegramFormat = "HTML" | "MarkdownV2" | "Markdown";
