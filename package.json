@@ -9,7 +9,11 @@
     "tsstart": "npx ts-node app.ts",
     "start": "node dist/app.js"
   },
-  "keywords": ["telegram", "bot", "simple"],
+  "keywords": [
+    "telegram",
+    "bot",
+    "simple"
+  ],
   "author": "Daniel Garcia <dev@danigarcia.org>",
   "license": "ISC",
   "description": "",
@@ -17,7 +21,8 @@
     "axios": "^1.10.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "form-data": "^4.0.3"
+    "form-data": "^4.0.3",
+    "pino": "^9.7.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
