@@ -7,7 +7,10 @@
     "clean": "[ -d dist ] && rm -rf dist",
     "dev": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"src/**/*.spec.ts\" --exec \"ts-node app.ts\"",
     "tsstart": "npx ts-node app.ts",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "docker-clean": "npx rimraf ./dist/telegram-simple-server.tar",
+    "docker-build": "docker build -t telegram-simple-server:latest .",
+    "docker-export": "mkdir -p dist && npm run docker-clean && npm run docker-build && docker save -o ./dist/telegram-simple-server.tar telegram-simple-server"
   },
   "keywords": [
     "telegram",
@@ -28,6 +31,7 @@
     "@types/express": "^5.0.3",
     "@types/form-data": "^2.5.2",
     "nodemon": "^3.1.10",
+    "rimraf": "^6.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
